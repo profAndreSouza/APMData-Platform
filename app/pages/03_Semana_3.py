@@ -60,27 +60,90 @@ else:
         st.error(f"Erro ao validar implementação: {e}")
 
 st.markdown("---")
-st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+st.header("🧬 Conteúdo Estatístico Detalhado")
 
-col_th1, col_th2, col_th3 = st.columns(3)
-with col_th1:
-    st.markdown("""
-    #### 📐 Amplitude
-    *   **Teoria**: Diferença entre o maior e o menor valor de uma série:
+# Amostras para demonstração
+dados_estaveis = [120.0, 125.0, 118.0, 122.0, 120.0]
+dados_instaveis = [50.0, 450.0, 20.0, 600.0, 80.0]
+st.write(f"**Conjunto de Dados (Latências Instáveis em ms):** `{dados_instaveis}`")
+
+# 1. Amplitude
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Amplitude (R)")
+        st.markdown("""
+        **Conceito**: É a diferença absoluta entre o maior e o menor valor de uma amostra, mostrando a extensão total da variação de latência.
+        
+        **Fórmula Matemática**:
         $$R = x_{max} - x_{min}$$
-    *   **Na Aplicação (APM)**: Indica a distância total de tempo de resposta entre a requisição mais lenta e a mais rápida. É útil para detectar a disparidade máxima na experiência dos usuários.
-    """)
-with col_th2:
-    st.markdown("""
-    #### 📐 Variância
-    *   **Teoria**: Mede o quão dispersos os dados estão em relação à média, calculando a média dos desvios quadráticos:
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_amp != "NotImplemented":
+            try:
+                res_amp = calcular_amplitude(dados_instaveis)
+                st.info(f"💡 **Amplitude Calculada**: `{res_amp:.2f} ms`")
+            except Exception as e:
+                st.error(f"Erro: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        A amplitude de **580 ms** reflete a disparidade máxima entre o melhor cenário (20 ms) e o pior cenário (600 ms) enfrentado pelos usuários. Embora seja simples de calcular, ela é muito limitada porque desconsidera a distribuição de todos os outros valores intermediários.
+        """)
+
+# 2. Variância
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Variância Amostral")
+        st.markdown("""
+        **Conceito**: Mede a dispersão dos dados calculando a média dos desvios elevados ao quadrado em relação à média geral. A elevação ao quadrado evita que desvios positivos e negativos se cancelem.
+        
+        **Fórmula Matemática**:
         $$s^2 = \\frac{\\sum_{i=1}^{n} (x_i - \\bar{x})^2}{n - 1}$$
-    *   **Na Aplicação (APM)**: Serve como base matemática para quantificar a oscilação do desempenho, mas sua unidade é em milissegundos elevados ao quadrado ($ms^2$), dificultando a leitura direta.
-    """)
-with col_th3:
-    st.markdown("""
-    #### 📐 Desvio Padrão
-    *   **Teoria**: É a raiz quadrada da variância, trazendo a dispersão de volta para a unidade original dos dados:
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_var != "NotImplemented":
+            try:
+                res_var = calcular_variancia(dados_instaveis, amostral=True)
+                st.info(f"💡 **Variância Calculada**: `{res_var:.2f} ms²`")
+            except Exception as e:
+                st.error(f"Erro: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        O cálculo resultou em **67.300 ms²**. Note que a variância está expressa em milissegundos elevados ao quadrado ($ms^2$). Como essa unidade não corresponde ao mundo real de APM (ninguém mede tempo ao quadrado), a variância serve essencialmente como degrau intermediário para chegarmos ao desvio padrão.
+        """)
+
+# 3. Desvio Padrão
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Desvio Padrão Amostral")
+        st.markdown("""
+        **Conceito**: É a raiz quadrada da variância. Ele traz a medida de dispersão de volta para a mesma unidade física do conjunto de dados original.
+        
+        **Fórmula Matemática**:
         $$s = \\sqrt{s^2}$$
-    *   **Na Aplicação (APM)**: Representa o **Jitter** (oscilação/instabilidade do sistema). Se o desvio for baixo (ex: 5 ms), a API é muito estável. Se for alto (ex: 200 ms), a performance é inconstante e imprevisível.
-    """)
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_std != "NotImplemented":
+            try:
+                res_std = calcular_desvio_padrao(dados_instaveis, amostral=True)
+                st.info(f"💡 **Desvio Padrão Calculado**: `{res_std:.2f} ms`")
+            except Exception as e:
+                st.error(f"Erro: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        O desvio padrão de **259.42 ms** mede diretamente a volatilidade ou o **Jitter** do servidor. Isso indica que, embora a média aritmética desse conjunto seja de 240 ms, as respostas reais tendem a variar em torno de +/- 259 ms para cima ou para baixo, indicando uma infraestrutura altamente instável e de péssima qualidade de serviço (QoS).
+        """)

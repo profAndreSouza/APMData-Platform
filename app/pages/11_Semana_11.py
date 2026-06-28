@@ -50,10 +50,49 @@ else:
         st.error(f"Erro ao validar implementação: {e}")
 
 st.markdown("---")
-st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+st.header("🧬 Conteúdo Estatístico Detalhado")
 
-st.markdown("""
-#### 📐 Regressão Linear Simples por Mínimos Quadrados (MQO)
-*   **Teoria**: Modela a relação entre duas variáveis contínuas ajustando uma equação linear ($y = ax + b$). Os coeficientes de inclinação ($a$) e intercepto ($b$) são calculados para minimizar a soma dos quadrados dos erros (resíduos) entre os valores reais observados e a reta predita.
-*   **Na Aplicação (APM - Planejamento de Capacidade)**: Essencial para o **Capacity Planning** da infraestrutura de nuvem. Ao monitorar o consumo acumulado de memória RAM ao longo do tempo, a reta de regressão permite estimar a taxa de consumo de hardware e prever com precisão matemática em quantas horas o servidor baterá 100% de ocupação (causando falha crítica por falta de memória - OOM / Memory Leak), permitindo ao time programar alarmes e configurar thresholds corretos para as políticas de Auto-Scaling da AWS.
-""")
+# Dados de Exemplo
+horas = [1.0, 2.0, 3.0, 4.0, 5.0]
+ram = [30.0, 35.0, 41.0, 47.0, 52.0]
+
+col_reg1, col_reg2 = st.columns(2)
+with col_reg1:
+    st.write(f"**Variável Independente X (Tempo decorrido em horas):** `{horas}`")
+with col_reg2:
+    st.write(f"**Variável Dependente Y (% Uso de RAM):** `{ram}`")
+
+# Card da Regressão Linear
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Regressão Linear Simples por MQO")
+        st.markdown("""
+        **Conceito**: Modela o relacionamento linear entre duas variáveis contínuas ajustando a reta ideal. A inclinação ($a$) representa a taxa de variação de $Y$ por unidade de $X$, e o intercepto ($b$) representa o valor de $Y$ quando $X = 0$.
+        
+        **Fórmula Matemática**:
+        $$y = a \\cdot x + b$$
+        $$a = \\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2} \\quad , \\quad b = \\bar{y} - a \\cdot \\bar{x}$$
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_reg != "NotImplemented":
+            try:
+                a_coef, b_coef = ajuste_regressao_linear(horas, ram)
+                st.info(f"💡 **Equação Ajustada**: $RAM = {a_coef:.2f} \\cdot Hora + {b_coef:.2f}$")
+                
+                # Previsão para hora = 12
+                prev_12 = a_coef * 12 + b_coef
+                st.write(f"**Previsão de uso de RAM para o instante t = 12h:** `{prev_12:.2f}%`")
+            except Exception as e:
+                st.error(f"Erro no cálculo: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        O coeficiente angular ($a = 5.60$) nos diz que o consumo de memória RAM cresce linearmente em **5,60%** a cada hora. Com o intercepto em $24.20$, prevemos que na hora $12$ o consumo de RAM estourará os limites e atingirá **91.4%**, representando um risco severo de travamento.
+        
+        **Importância no APM (Capacity Planning)**:
+        Esta análise capacita o time de infraestrutura a identificar vazamentos de recursos (Memory Leaks). Ao projetar linearmente o consumo de RAM, os engenheiros evitam interrupções inesperadas (Out-Of-Memory / OOM), programando alarmes ou escalando preventivamente antes da quebra de serviço.
+        """)

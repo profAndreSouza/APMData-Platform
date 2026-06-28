@@ -18,6 +18,25 @@ except ImportError:
 
 st.set_page_config(page_title="Semana 2: Tendência Central", page_icon="📊", layout="wide")
 
+# Custom CSS para estética premium
+st.markdown("""
+<style>
+    .metric-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+    }
+    .metric-title {
+        color: #ff5722;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("Semana 2: Tendência Central & IAM")
 st.markdown("---")
 
@@ -45,11 +64,9 @@ exibir_codigo_funcao(calcular_mediana, "calcular_mediana")
 if status_media == "NotImplemented" or status_mediana == "NotImplemented":
     st.error("🔴 PENDENTE: As funções `calcular_media` ou `calcular_mediana` ainda não foram implementadas no arquivo `stats.py`.")
 else:
-    # Rodar testes de veracidade
     try:
         m_val = calcular_media([10.0, 20.0, 30.0])
         med_val = calcular_mediana([1.0, 3.0, 2.0])
-        
         if m_val == 20.0 and med_val == 2.0:
             st.success("🟢 CONCLUÍDO: As funções `calcular_media` e `calcular_mediana` foram implementadas e retornam valores corretos!")
         else:
@@ -58,19 +75,63 @@ else:
         st.error(f"Erro ao validar implementação: {e}")
 
 st.markdown("---")
-st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+st.header("🧬 Conteúdo Estatístico Detalhado")
 
-col_th1, col_th2 = st.columns(2)
-with col_th1:
-    st.markdown("""
-    #### 📐 Média Aritmética
-    *   **Teoria**: É a soma de todas as observações dividida pelo número total de elementos:
+# Amostra para demonstração
+dados_exemplo = [100.0, 150.0, 120.0, 900.0, 130.0]
+st.write(f"**Conjunto de Dados de Exemplo (Latências da API em ms):** `{dados_exemplo}`")
+
+# 1. Card da Média
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Média Aritmética")
+        st.markdown("""
+        **Conceito**: Representa o ponto de equilíbrio matemático do conjunto de dados, calculado somando todos os valores e dividindo pelo total de observações.
+        
+        **Fórmula Matemática**:
         $$\\bar{x} = \\frac{\\sum_{i=1}^{n} x_i}{n}$$
-    *   **Na Aplicação (APM)**: Representa a latência média das requisições. Contudo, ela é muito sensível a *outliers* (valores extremos). Se uma única chamada travar por 10 segundos devido a um timeout de banco de dados, a latência média subirá drasticamente, mesmo que 99% das outras requisições tenham sido respondidas em 20 ms.
-    """)
-with col_th2:
-    st.markdown("""
-    #### 📐 Mediana (P50)
-    *   **Teoria**: É o valor central que divide o conjunto de dados ordenados ao meio (50% menores e 50% maiores).
-    *   **Na Aplicação (APM)**: Representa o tempo de resposta típico do usuário comum. Por ignorar extremos, se o servidor tiver alguns travamentos isolados, a mediana permanecerá baixa, mostrando a latência real da maioria estável dos acessos.
-    """)
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_media != "NotImplemented":
+            try:
+                res_media = calcular_media(dados_exemplo)
+                st.info(f"💡 **Média Calculada**: `{res_media:.2f} ms`")
+            except Exception as e:
+                st.error(f"Erro ao calcular: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação da função para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado (Interpretação)**:
+        O resultado da média foi fortemente puxado pelo valor de **900 ms** (um pico isolado de lentidão). Perceba que a média calculada (~280 ms) é significativamente maior do que 4 das 5 observações reais. Isso demonstra o risco de usar apenas a média aritmética no monitoramento de APM, pois outliers isolados mascaram o comportamento típico da aplicação.
+        """)
+
+# 2. Card da Mediana
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Mediana (P50)")
+        st.markdown("""
+        **Conceito**: Representa o valor central que divide o conjunto de dados ordenados exatamente em duas partes iguais (50% das observações menores e 50% maiores).
+        
+        **Fórmula Matemática**:
+        $$Mediana = x_{\\frac{n+1}{2}} \\quad \\text{(para } n \\text{ ímpar)}$$
+        $$Mediana = \\frac{x_{\\frac{n}{2}} + x_{\\frac{n}{2} + 1}}{2} \\quad \\text{(para } n \\text{ par)}$$
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_mediana != "NotImplemented":
+            try:
+                res_mediana = calcular_mediana(dados_exemplo)
+                st.info(f"💡 **Mediana Calculada**: `{res_mediana:.2f} ms`")
+            except Exception as e:
+                st.error(f"Erro ao calcular: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação da função para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado (Interpretação)**:
+        O cálculo ordenou os dados para `[100, 120, 130, 150, 900]` e pegou o valor central **130 ms**. Isso mostra que 50% dos usuários acessaram a API em até 130 ms. A mediana é imune a picos isolados (como o de 900 ms), tornando-se uma métrica muito mais fiel para representar a experiência padrão do usuário em sistemas de APM.
+        """)

@@ -45,13 +45,59 @@ else:
     st.success("🟢 CONCLUÍDO: Decomposição clássica de séries temporais validada!")
 
 st.markdown("---")
-st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+st.header("🧬 Conteúdo Estatístico Detalhado")
 
-st.markdown("""
-#### 📐 Decomposição de Séries Temporais
-*   **Teoria**: Separação de uma série temporal observada em três componentes estruturais distintos:
-    1.  **Tendência**: Direção de longo prazo (crescimento ou decrescimento sustentado).
-    2.  **Sazonalidade**: Variações periódicas regulares que se repetem em intervalos fixos (ex: picos diários ou semanais).
-    3.  **Resíduo (Ruído)**: Flutuações aleatórias não explicadas pelos outros dois fatores.
-*   **Na Aplicação (APM - Uso de CPU/RAM)**: Ajuda a ignorar variações rotineiras de acessos diários (sazonalidade de pico comercial) para enxergar o comportamento subjacente do sistema. Ao analisar a curva de **Tendência**, o time de SRE consegue identificar degradações silenciosas e sustentadas na performance ou vazamentos lentos de recursos que exigiriam redimensionamento físico da infraestrutura a médio prazo.
-""")
+# Dados de Exemplo
+np.random.seed(42)
+datas = pd.date_range(start="2026-06-01", periods=24, freq="h")
+# Cria uma série temporal com tendência e sazonalidade de período 6
+tendencia = np.linspace(20, 50, 24)
+sazonalidade = np.sin(np.linspace(0, 4*np.pi, 24)) * 10
+ruido = np.random.normal(0, 2, 24)
+s_observada = pd.Series(tendencia + sazonalidade + ruido, index=datas)
+
+st.write("**Série Temporal Observada de Uso de CPU (24 horas):**")
+st.line_chart(s_observada)
+
+# Card da Decomposição
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Decomposição de Séries Temporais")
+        st.markdown("""
+        **Conceito**: Consiste em desmembrar uma série de dados cronológicos observada em componentes individuais para facilitar o entendimento de padrões.
+        
+        **Fórmula Matemática (Modelo Aditivo)**:
+        $$Y_t = T_t + S_t + I_t$$
+        onde:
+        *   $Y_t$: Série observada original
+        *   $T_t$: **Tendência** (comportamento de longo prazo)
+        *   $S_t$: **Sazonalidade** (ciclo periódico repetitivo)
+        *   $I_t$: **Resíduo** (ruído ou flutuação irregular aleatória)
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_dec != "NotImplemented":
+            try:
+                trend, seasonal, resid = decompor_serie_temporal(s_observada, 6)
+                st.info("💡 **Decomposição Realizada com Sucesso!**")
+                
+                # Plot resumido
+                df_decomp = pd.DataFrame({
+                    "Observado": s_observada,
+                    "Tendência (Long Term)": trend,
+                    "Sazonalidade (Ciclos)": seasonal
+                })
+                st.line_chart(df_decomp)
+            except Exception as e:
+                st.error(f"Erro no cálculo: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        Ao isolar a **Sazonalidade**, conseguimos ver o pico periódico que se repete a cada período configurado. Já o isolamento da **Tendência** nos revela a curva real purificada de ruídos e oscilações cíclicas, mostrando claramente o avanço contínuo e sustentado do consumo de recursos.
+        
+        **Importância no APM**:
+        Permite que a engenharia de DevOps e SRE configure regras de alerta inteligentes. Em vez de disparar falsos alarmes de CPU durante o pico natural do horário comercial (sazonalidade), o sistema analisa a *Tendência* subjacente para detectar fadigas reais de hardware no longo prazo.
+        """)
