@@ -41,3 +41,12 @@ if status_shap == "NotImplemented":
     st.error("🔴 PENDENTE: Teste de Shapiro-Wilk não implementado em `hypothesis.py`.")
 else:
     st.success("🟢 CONCLUÍDO: Função `teste_shapiro_wilk` validada com sucesso!")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+st.markdown("""
+#### 📐 Teste de Normalidade de Shapiro-Wilk
+*   **Teoria**: Testa a hipótese nula ($H_0$) de que uma amostra provém de uma população com distribuição normal. Se o valor-p retornado for menor que o nível de significância (alfa = 0.05), rejeitamos $H_0$ e concluímos que os dados não seguem uma distribuição normal.
+*   **Na Aplicação (APM - Latência de Resposta)**: Tempos de resposta de software raramente seguem distribuições normais; eles costumam ser log-normais ou multimodais. Provar estatisticamente que a latência não é normal justifica a necessidade de usar **percentis (P95 e P99)** no monitoramento diário em vez de confiar na latência média para avaliar a satisfação real dos usuários da API.
+""")

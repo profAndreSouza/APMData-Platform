@@ -48,3 +48,12 @@ else:
             st.warning("⚠️ AJUSTES NECESSÁRIOS: Os coeficientes calculados não batem com o gabarito matemático.")
     except Exception as e:
         st.error(f"Erro ao validar implementação: {e}")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+st.markdown("""
+#### 📐 Regressão Linear Simples por Mínimos Quadrados (MQO)
+*   **Teoria**: Modela a relação entre duas variáveis contínuas ajustando uma equação linear ($y = ax + b$). Os coeficientes de inclinação ($a$) e intercepto ($b$) são calculados para minimizar a soma dos quadrados dos erros (resíduos) entre os valores reais observados e a reta predita.
+*   **Na Aplicação (APM - Planejamento de Capacidade)**: Essencial para o **Capacity Planning** da infraestrutura de nuvem. Ao monitorar o consumo acumulado de memória RAM ao longo do tempo, a reta de regressão permite estimar a taxa de consumo de hardware e prever com precisão matemática em quantas horas o servidor baterá 100% de ocupação (causando falha crítica por falta de memória - OOM / Memory Leak), permitindo ao time programar alarmes e configurar thresholds corretos para as políticas de Auto-Scaling da AWS.
+""")

@@ -163,6 +163,16 @@ with col_b:
         st.info("💡 Ajuste de regressão linear para capacity planning pendente de implementação.")
 
 st.markdown("---")
+st.header("💡 Interpretador de Métricas APM (Guia de Produção)")
+st.markdown("""
+Como ler os indicadores deste painel para tomada de decisões operacionais:
+*   **Tempo de Resposta Médio vs Mediana (P50)**: Se a média aritmética for significativamente maior que a mediana, isso indica a presença de *outliers* na infraestrutura (requisições pontuais muito lentas travando o processamento, enquanto a maioria dos usuários navega de forma rápida e estável).
+*   **Desvio Padrão (Jitter)**: Indica o grau de oscilação do tempo de resposta. Valores altos de desvio padrão sinalizam uma experiência de usuário inconsistente e instável (lentidões intermitentes).
+*   **Distribuição de Normalidade (Shapiro-Wilk)**: Como os tempos de resposta de software geralmente possuem caudas longas, o teste estatístico serve para provar que a latência não segue uma distribuição gaussiana comum, validando a necessidade de focar em percentis de cauda (P95 e P99) em vez de médias simples.
+*   **Planejamento de Capacidade (Capacity Planning)**: A reta de tendência projeta o comportamento do consumo de memória RAM ao longo das próximas horas. Se o coeficiente de inclinação for positivo e contínuo, indica um vazamento de memória (*Memory Leak*) em andamento na API, necessitando de intervenção preventiva do time de SRE.
+""")
+
+st.markdown("---")
 st.header("💻 Inspeção de Código Ativo (Algoritmos Estatísticos)")
 st.markdown("Veja abaixo as implementações reais das funções matemáticas utilizadas nas métricas deste dashboard:")
 

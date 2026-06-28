@@ -56,3 +56,21 @@ else:
             st.warning("⚠️ AJUSTES NECESSÁRIOS: As funções foram criadas mas a lógica matemática está retornando valores incorretos.")
     except Exception as e:
         st.error(f"Erro ao validar implementação: {e}")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+col_th1, col_th2 = st.columns(2)
+with col_th1:
+    st.markdown("""
+    #### 📐 Média Aritmética
+    *   **Teoria**: É a soma de todas as observações dividida pelo número total de elementos:
+        $$\\bar{x} = \\frac{\\sum_{i=1}^{n} x_i}{n}$$
+    *   **Na Aplicação (APM)**: Representa a latência média das requisições. Contudo, ela é muito sensível a *outliers* (valores extremos). Se uma única chamada travar por 10 segundos devido a um timeout de banco de dados, a latência média subirá drasticamente, mesmo que 99% das outras requisições tenham sido respondidas em 20 ms.
+    """)
+with col_th2:
+    st.markdown("""
+    #### 📐 Mediana (P50)
+    *   **Teoria**: É o valor central que divide o conjunto de dados ordenados ao meio (50% menores e 50% maiores).
+    *   **Na Aplicação (APM)**: Representa o tempo de resposta típico do usuário comum. Por ignorar extremos, se o servidor tiver alguns travamentos isolados, a mediana permanecerá baixa, mostrando a latência real da maioria estável dos acessos.
+    """)
