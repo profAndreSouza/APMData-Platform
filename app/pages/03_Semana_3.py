@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 calcular_variancia = None
@@ -41,6 +41,11 @@ st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 status_var = testar_funcao(calcular_variancia, [10.0, 20.0, 30.0])
 status_std = testar_funcao(calcular_desvio_padrao, [10.0, 20.0, 30.0])
 status_amp = testar_funcao(calcular_amplitude, [10.0, 20.0, 30.0])
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(calcular_variancia, "calcular_variancia")
+exibir_codigo_funcao(calcular_desvio_padrao, "calcular_desvio_padrao")
+exibir_codigo_funcao(calcular_amplitude, "calcular_amplitude")
 
 if "NotImplemented" in [status_var, status_std, status_amp]:
     st.error("🔴 PENDENTE: As funções de dispersão ainda não foram totalmente implementadas em `stats.py`.")

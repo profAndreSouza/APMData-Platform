@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 ajuste_regressao_linear = None
@@ -33,6 +33,9 @@ st.info("Implementar `ajuste_regressao_linear` em `app/core/time_series.py`. Rod
 st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_reg = testar_funcao(ajuste_regressao_linear, [1, 2, 3], [2, 4, 5])
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(ajuste_regressao_linear, "ajuste_regressao_linear")
 
 if status_reg == "NotImplemented":
     st.error("🔴 PENDENTE: Função `ajuste_regressao_linear` pendente em `time_series.py`.")

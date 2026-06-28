@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 teste_shapiro_wilk = None
@@ -33,6 +33,9 @@ st.info("Implementar `teste_shapiro_wilk` em `app/core/hypothesis.py`. Conectar 
 st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_shap = testar_funcao(teste_shapiro_wilk, [1.0, 2.0, 3.0, 4.0, 5.0])
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(teste_shapiro_wilk, "teste_shapiro_wilk")
 
 if status_shap == "NotImplemented":
     st.error("🔴 PENDENTE: Teste de Shapiro-Wilk não implementado em `hypothesis.py`.")

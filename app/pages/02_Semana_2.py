@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 calcular_media = None
@@ -37,6 +37,10 @@ st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_media = testar_funcao(calcular_media, [10.0, 20.0, 30.0])
 status_mediana = testar_funcao(calcular_mediana, [10.0, 20.0, 30.0])
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(calcular_media, "calcular_media")
+exibir_codigo_funcao(calcular_mediana, "calcular_mediana")
 
 if status_media == "NotImplemented" or status_mediana == "NotImplemented":
     st.error("🔴 PENDENTE: As funções `calcular_media` ou `calcular_mediana` ainda não foram implementadas no arquivo `stats.py`.")
