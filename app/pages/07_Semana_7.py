@@ -41,3 +41,12 @@ if status_qui == "NotImplemented":
     st.error("🔴 PENDENTE: Teste Qui-Quadrado de associação categórica pendente em `hypothesis.py`.")
 else:
     st.success("🟢 CONCLUÍDO: Módulo de associação estatística e teste do Qui-Quadrado validado!")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+st.markdown("""
+#### 📐 Teste do Qui-Quadrado de Associação (Independência)
+*   **Teoria**: Compara frequências observadas de duas variáveis categóricas com as frequências esperadas sob a hipótese de que as variáveis são independentes ($H_0$). Se o p-valor < 0.05, rejeitamos $H_0$, indicando que as variáveis têm associação significativa.
+*   **Na Aplicação (APM - Correlação de Erros)**: Crucial para **diagnóstico de incidentes (Troubleshooting)**. Permite provar se a ocorrência de erros HTTP 500 está associada de forma sistemática a um endpoint específico da API (ex: `/api/v1/checkout`) ou se os erros estão ocorrendo de maneira aleatória distribuída igualmente entre todas as rotas.
+""")

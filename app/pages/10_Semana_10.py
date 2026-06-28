@@ -43,3 +43,15 @@ if status_dec == "NotImplemented":
     st.error("🔴 PENDENTE: Função `decompor_serie_temporal` não implementada em `time_series.py`.")
 else:
     st.success("🟢 CONCLUÍDO: Decomposição clássica de séries temporais validada!")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+st.markdown("""
+#### 📐 Decomposição de Séries Temporais
+*   **Teoria**: Separação de uma série temporal observada em três componentes estruturais distintos:
+    1.  **Tendência**: Direção de longo prazo (crescimento ou decrescimento sustentado).
+    2.  **Sazonalidade**: Variações periódicas regulares que se repetem em intervalos fixos (ex: picos diários ou semanais).
+    3.  **Resíduo (Ruído)**: Flutuações aleatórias não explicadas pelos outros dois fatores.
+*   **Na Aplicação (APM - Uso de CPU/RAM)**: Ajuda a ignorar variações rotineiras de acessos diários (sazonalidade de pico comercial) para enxergar o comportamento subjacente do sistema. Ao analisar a curva de **Tendência**, o time de SRE consegue identificar degradações silenciosas e sustentadas na performance ou vazamentos lentos de recursos que exigiriam redimensionamento físico da infraestrutura a médio prazo.
+""")

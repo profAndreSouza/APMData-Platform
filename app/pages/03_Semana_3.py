@@ -58,3 +58,29 @@ else:
             st.warning("⚠️ AJUSTES NECESSÁRIOS: Lógica de variância retornando valores incorretos. Verifique o divisor (N-1) na variância amostral.")
     except Exception as e:
         st.error(f"Erro ao validar implementação: {e}")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+col_th1, col_th2, col_th3 = st.columns(3)
+with col_th1:
+    st.markdown("""
+    #### 📐 Amplitude
+    *   **Teoria**: Diferença entre o maior e o menor valor de uma série:
+        $$R = x_{max} - x_{min}$$
+    *   **Na Aplicação (APM)**: Indica a distância total de tempo de resposta entre a requisição mais lenta e a mais rápida. É útil para detectar a disparidade máxima na experiência dos usuários.
+    """)
+with col_th2:
+    st.markdown("""
+    #### 📐 Variância
+    *   **Teoria**: Mede o quão dispersos os dados estão em relação à média, calculando a média dos desvios quadráticos:
+        $$s^2 = \\frac{\\sum_{i=1}^{n} (x_i - \\bar{x})^2}{n - 1}$$
+    *   **Na Aplicação (APM)**: Serve como base matemática para quantificar a oscilação do desempenho, mas sua unidade é em milissegundos elevados ao quadrado ($ms^2$), dificultando a leitura direta.
+    """)
+with col_th3:
+    st.markdown("""
+    #### 📐 Desvio Padrão
+    *   **Teoria**: É a raiz quadrada da variância, trazendo a dispersão de volta para a unidade original dos dados:
+        $$s = \\sqrt{s^2}$$
+    *   **Na Aplicação (APM)**: Representa o **Jitter** (oscilação/instabilidade do sistema). Se o desvio for baixo (ex: 5 ms), a API é muito estável. Se for alto (ex: 200 ms), a performance é inconstante e imprevisível.
+    """)

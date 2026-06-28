@@ -48,3 +48,12 @@ else:
             st.warning(f"⚠️ AJUSTES NECESSÁRIOS: Amostragem retornou {amostra} mas o esperado para passo k=4 era [1, 5].")
     except Exception as e:
         st.error(f"Erro ao validar implementação: {e}")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+st.markdown("""
+#### 📐 Amostragem Sistemática
+*   **Teoria**: Seleção de elementos a partir de uma regra fixa com intervalos regulares (passo $k = N/n$). Após definir um ponto inicial aleatório, escolhe-se cada $k$-ésimo elemento subsequente.
+*   **Na Aplicação (APM - Custos de Logs)**: Sistemas reais geram milhões de linhas de log por segundo. Enviar e armazenar tudo isso no AWS CloudWatch gera um custo proibitivo de ingestão de dados. A amostragem sistemática permite coletar, por exemplo, 1 a cada 10 requisições ($k=10$). Isso reduz o custo de armazenamento em 90% na AWS, enquanto mantém a precisão das estimativas de latência e saúde do sistema intactas estatisticamente.
+""")

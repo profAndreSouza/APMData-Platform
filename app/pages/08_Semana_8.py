@@ -48,3 +48,12 @@ else:
             st.warning("⚠️ AJUSTES NECESSÁRIOS: O coeficiente de Pearson não retornou 1.0 para dados perfeitamente lineares.")
     except Exception as e:
         st.error(f"Erro ao validar implementação: {e}")
+
+st.markdown("---")
+st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+
+st.markdown("""
+#### 📐 Coeficiente de Correlação de Pearson
+*   **Teoria**: Mede o grau e a direção da relação linear entre duas variáveis quantitativas contínuas. O coeficiente $r$ varia de -1 (correlação linear negativa perfeita) a +1 (correlação linear positiva perfeita), com 0 indicando nenhuma correlação linear.
+*   **Na Aplicação (APM - Consumo de Hardware)**: Avalia o impacto do tráfego na máquina. Ao calcular a correlação entre a taxa de requisições por segundo (Req/s) e a porcentagem de uso de CPU, uma correlação próxima de +1 prova que a carga do servidor está respondendo diretamente ao uso dos clientes, sinalizando comportamento previsível e indicando que otimizações de código ou escalabilidade horizontal (Auto-Scaling) resolverão problemas de sobrecarga.
+""")
