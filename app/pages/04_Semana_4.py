@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 amostragem_sistematica = None
@@ -33,6 +33,9 @@ st.info("Implementar as funções de `amostragem_sistematica` e `amostragem_estr
 st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_sis = testar_funcao(amostragem_sistematica, [1, 2, 3, 4, 5, 6], 2)
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(amostragem_sistematica, "amostragem_sistematica")
 
 if status_sis == "NotImplemented":
     st.error("🔴 PENDENTE: Algoritmo `amostragem_sistematica` pendente de implementação em `sampling.py`.")

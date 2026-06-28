@@ -31,3 +31,16 @@ def obter_readme_markdown() -> str:
         except Exception as e:
             return f"Não foi possível ler o arquivo README.md: {e}"
     return ""
+
+def exibir_codigo_funcao(func, titulo="Código-Fonte da Função"):
+    """Exibe o código-fonte de uma função no Streamlit usando st.code."""
+    import inspect
+    if func is None:
+        st.warning(f"⚠️ {titulo}: Função não importada ou indisponível.")
+        return
+    try:
+        source_code = inspect.getsource(func)
+        with st.expander(f"💻 Visualizar Código: `{titulo}`", expanded=False):
+            st.code(source_code, language='python')
+    except Exception as e:
+        st.warning(f"Não foi possível ler o código-fonte de `{titulo}`: {e}")

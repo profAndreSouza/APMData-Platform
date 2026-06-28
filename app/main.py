@@ -7,7 +7,7 @@ import os
 
 # Tenta importar os loaders e helpers
 from utils.data_loader import gerar_dados_apm
-from utils.helpers import obter_readme_markdown
+from utils.helpers import obter_readme_markdown, exibir_codigo_funcao
 
 # Tenta importar as funções de ciência de dados dos alunos
 core_stats = None
@@ -161,3 +161,17 @@ with col_b:
             st.success(f"🟢 Seguro: Uso de RAM estimado em {futuro}h está sob controle ({predito:.2f}%).")
     except (NameError, NotImplementedError, TypeError):
         st.info("💡 Ajuste de regressão linear para capacity planning pendente de implementação.")
+
+st.markdown("---")
+st.header("💻 Inspeção de Código Ativo (Algoritmos Estatísticos)")
+st.markdown("Veja abaixo as implementações reais das funções matemáticas utilizadas nas métricas deste dashboard:")
+
+col_code1, col_code2 = st.columns(2)
+with col_code1:
+    exibir_codigo_funcao(calcular_media, "calcular_media")
+    exibir_codigo_funcao(calcular_mediana, "calcular_mediana")
+    exibir_codigo_funcao(calcular_desvio_padrao, "calcular_desvio_padrao")
+
+with col_code2:
+    exibir_codigo_funcao(teste_shapiro_wilk, "teste_shapiro_wilk")
+    exibir_codigo_funcao(ajuste_regressao_linear, "ajuste_regressao_linear")

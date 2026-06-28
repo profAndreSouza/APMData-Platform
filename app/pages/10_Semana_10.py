@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 decompor_serie_temporal = None
@@ -35,6 +35,9 @@ st.info("Implementar a função `decompor_serie_temporal` em `app/core/time_seri
 st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_dec = testar_funcao(decompor_serie_temporal, pd.Series(np.random.rand(50), index=pd.date_range("2026-01-01", periods=50)), 7)
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(decompor_serie_temporal, "decompor_serie_temporal")
 
 if status_dec == "NotImplemented":
     st.error("🔴 PENDENTE: Função `decompor_serie_temporal` não implementada em `time_series.py`.")

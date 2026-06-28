@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 teste_qui_quadrado_associacao = None
@@ -33,6 +33,9 @@ st.info("Implementar `teste_qui_quadrado_associacao` em `app/core/hypothesis.py`
 st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_qui = testar_funcao(teste_qui_quadrado_associacao, [[10, 10], [10, 10]])
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(teste_qui_quadrado_associacao, "teste_qui_quadrado_associacao")
 
 if status_qui == "NotImplemented":
     st.error("🔴 PENDENTE: Teste Qui-Quadrado de associação categórica pendente em `hypothesis.py`.")

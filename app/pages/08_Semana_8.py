@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.helpers import testar_funcao
+from utils.helpers import testar_funcao, exibir_codigo_funcao
 
 # Importações do aluno
 calcular_correlacao_pearson = None
@@ -33,6 +33,9 @@ st.info("Implementar `calcular_correlacao_pearson` em `app/core/time_series.py`.
 st.subheader("🔍 Validação da Entrega (Indicador de Progresso)")
 
 status_pe = testar_funcao(calcular_correlacao_pearson, [1, 2, 3], [2, 4, 6])
+
+# Exibe o código-fonte detectado
+exibir_codigo_funcao(calcular_correlacao_pearson, "calcular_correlacao_pearson")
 
 if status_pe == "NotImplemented":
     st.error("🔴 PENDENTE: Coeficiente de correlação de Pearson não implementado em `time_series.py`.")
