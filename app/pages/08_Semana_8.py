@@ -50,10 +50,48 @@ else:
         st.error(f"Erro ao validar implementação: {e}")
 
 st.markdown("---")
-st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+st.header("🧬 Conteúdo Estatístico Detalhado")
 
-st.markdown("""
-#### 📐 Coeficiente de Correlação de Pearson
-*   **Teoria**: Mede o grau e a direção da relação linear entre duas variáveis quantitativas contínuas. O coeficiente $r$ varia de -1 (correlação linear negativa perfeita) a +1 (correlação linear positiva perfeita), com 0 indicando nenhuma correlação linear.
-*   **Na Aplicação (APM - Consumo de Hardware)**: Avalia o impacto do tráfego na máquina. Ao calcular a correlação entre a taxa de requisições por segundo (Req/s) e a porcentagem de uso de CPU, uma correlação próxima de +1 prova que a carga do servidor está respondendo diretamente ao uso dos clientes, sinalizando comportamento previsível e indicando que otimizações de código ou escalabilidade horizontal (Auto-Scaling) resolverão problemas de sobrecarga.
-""")
+# Dados de Exemplo
+tráfego_reqs = [10.0, 20.0, 30.0, 40.0, 50.0]
+uso_cpu = [12.0, 22.0, 44.0, 61.0, 85.0]
+
+col_data1, col_data2 = st.columns(2)
+with col_data1:
+    st.write(f"**Variável Independente X (Requisições por segundo):** `{tráfego_reqs}`")
+with col_data2:
+    st.write(f"**Variável Dependente Y (% Uso de CPU):** `{uso_cpu}`")
+
+# Card da Correlação de Pearson
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Coeficiente de Correlação de Pearson (r)")
+        st.markdown("""
+        **Conceito**: Mede o grau e a direção da associação linear entre duas variáveis quantitativas contínuas. 
+        
+        *   **$r = 1$**: Correlação linear positiva perfeita.
+        *   **$r = 0$**: Ausência de correlação linear.
+        *   **$r = -1$**: Correlação linear negativa perfeita.
+        
+        **Fórmula Matemática**:
+        $$r = \\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum (x_i - \\bar{x})^2 \\sum (y_i - \\bar{y})^2}}$$
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        if status_pe != "NotImplemented":
+            try:
+                res_cor = calcular_correlacao_pearson(tráfego_reqs, uso_cpu)
+                st.info(f"💡 **Pearson (r) calculado**: `{res_cor:.4f}`")
+            except Exception as e:
+                st.error(f"Erro no cálculo: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        O valor calculado de **~0.992** é extremamente próximo de **1.0**, indicando uma associação linear positiva quase perfeita. Isso prova estatisticamente que o consumo de CPU aumenta em proporção direta à quantidade de chamadas que chegam.
+        
+        **Importância no APM**:
+        Comprova que a infraestrutura se comporta de forma previsível e linear. Caso o tráfego continue aumentando, o consumo de CPU também aumentará de forma correspondente, justificando o provisionamento preventivo de Auto-Scaling horizontal para tratar sobrecargas futuras.
+        """)

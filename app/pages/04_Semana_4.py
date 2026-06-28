@@ -50,10 +50,40 @@ else:
         st.error(f"Erro ao validar implementação: {e}")
 
 st.markdown("---")
-st.subheader("💡 Guia de Teoria e Interpretação (APM)")
+st.header("🧬 Conteúdo Estatístico Detalhado")
 
-st.markdown("""
-#### 📐 Amostragem Sistemática
-*   **Teoria**: Seleção de elementos a partir de uma regra fixa com intervalos regulares (passo $k = N/n$). Após definir um ponto inicial aleatório, escolhe-se cada $k$-ésimo elemento subsequente.
-*   **Na Aplicação (APM - Custos de Logs)**: Sistemas reais geram milhões de linhas de log por segundo. Enviar e armazenar tudo isso no AWS CloudWatch gera um custo proibitivo de ingestão de dados. A amostragem sistemática permite coletar, por exemplo, 1 a cada 10 requisições ($k=10$). Isso reduz o custo de armazenamento em 90% na AWS, enquanto mantém a precisão das estimativas de latência e saúde do sistema intactas estatisticamente.
-""")
+# Amostra para demonstração
+dados_logs = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
+st.write(f"**População Completa de Métricas de Latência (12 registros):** `{dados_logs}`")
+
+# Card da Amostragem Sistemática
+with st.container(border=True):
+    col_l, col_r = st.columns(2)
+    with col_l:
+        st.subheader("📊 Amostragem Sistemática")
+        st.markdown("""
+        **Conceito**: Seleção de elementos a partir de um intervalo regular fixo chamado **passo** ($k = N/n$). Após a definição de um ponto inicial ($i$), seleciona-se cada $k$-ésimo item para formar a amostra.
+        
+        **Fórmula Matemática**:
+        $$Passo \\ (k) = \\lfloor \\frac{N}{n} \\rfloor$$
+        $$Amostra = \\{ x_{i + j \\cdot k} \\} \\quad \\text{para } j = 0, 1, \\dots, n - 1$$
+        """)
+    with col_r:
+        st.markdown("**Resultado do Cálculo (Live Exec):**")
+        st.markdown("Configuração do teste: obter amostra de tamanho **$n = 4$**, partindo do índice **$i = 0$**.")
+        if status_sis != "NotImplemented":
+            try:
+                res_amostra = amostragem_sistematica(dados_logs, 4, ponto_partida=0)
+                st.info(f"💡 **Amostra Sistemática Extraída**: `{res_amostra}`")
+            except Exception as e:
+                st.error(f"Erro no cálculo: {e}")
+        else:
+            st.warning("⚠️ Aguardando implementação para exibir o cálculo.")
+            
+        st.markdown("""
+        **Explicação do Resultado**:
+        Com $N = 12$ e $n = 4$, o passo de salto foi calculado como $12 / 4 = 3$. Partindo do índice 0 (valor 10) e somando 3 posições a cada passo, coletamos as latências nos índices: 0 (valor 10), 3 (valor 40), 6 (valor 70) e 9 (valor 100). Isso nos dá a amostra `[10, 40, 70, 100]`.
+        
+        **Importância no APM**:
+        Em produção, armazenar 100% dos logs de requisições acarreta custos enormes na AWS. Ao programar uma amostragem sistemática periódica para capturar apenas uma requisição a cada 3 passagens, reduzimos os dados enviados no pipeline de DevOps em **66%**, mas preservamos a representatividade dos dados para análises estatísticas.
+        """)
