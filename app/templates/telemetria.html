@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Telemetria Online • InduData{% endblock %}
+
+{% block content %}
+<div class="bg-slate-900 text-white min-h-[80vh] py-16">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- BOTOES DE NAVEGACAO DO DASHBOARD -->
+        <div class="flex justify-between items-center mb-8 pb-6 border-b border-slate-800">
+            <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium no-underline">
+                <i class="fas fa-arrow-left"></i> Voltar para Home
+            </a>
+            <a href="/semana/1" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-2xl text-sm font-semibold inline-flex items-center gap-2 transition-all shadow-md no-underline">
+                Iniciar Roteiro Semanal <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- HEADER DO DASHBOARD -->
+        <div class="text-center mb-16">
+            <span class="px-4 py-2 bg-emerald-500/20 text-emerald-300 rounded-3xl text-sm font-semibold uppercase tracking-wider">
+                <i class="fas fa-satellite-dish mr-2 animate-pulse"></i>Monitoramento de Sensores em Tempo Real
+            </span>
+            <h1 class="heading-font text-4xl md:text-5xl font-bold mt-4 text-white">Painel de Telemetria Industrial</h1>
+            <p class="text-slate-400 mt-3 text-sm max-w-lg mx-auto">
+                Estatísticas operacionais e predições matemáticas computadas dinamicamente com base nos dados reais do maquinário.
+            </p>
+        </div>
+
+        <!-- MÉTRO CARD GRID -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
+                <span class="text-slate-400 text-xs font-semibold uppercase">Tempo de Resposta Médio</span>
+                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ media or '⚠️ Pendente (calcular_media)' }}</div>
+                <span class="text-emerald-400 text-[10px] mt-3"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
+                <span class="text-slate-400 text-xs font-semibold uppercase">Latência Mediana (P50)</span>
+                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ mediana or '⚠️ Pendente (calcular_mediana)' }}</div>
+                <span class="text-emerald-400 text-[10px] mt-3"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
+                <span class="text-slate-400 text-xs font-semibold uppercase">Desvio Padrão (Jitter / Dispersão)</span>
+                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ jitter or '⚠️ Pendente (calcular_desvio_padrao)' }}</div>
+                <span class="text-emerald-400 text-[10px] mt-3"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
+            </div>
+        </div>
+
+        <!-- PLOTS GRID -->
+        <div class="grid lg:grid-cols-3 gap-8 items-start mb-16">
+            <div class="lg:col-span-2 bg-slate-800/40 border border-slate-700/50 p-6 rounded-3xl shadow-lg">
+                <h3 class="heading-font text-lg font-semibold mb-4 text-slate-200"><i class="fas fa-chart-line mr-2 text-emerald-400"></i>Histórico Temporal de Latência (ms)</h3>
+                <img src="data:image/png;base64,{{ chart_latencia }}" alt="Histórico de Latência" class="w-full rounded-2xl border border-slate-700/30">
+            </div>
+            <div class="bg-slate-800/40 border border-slate-700/50 p-6 rounded-3xl shadow-lg">
+                <h3 class="heading-font text-lg font-semibold mb-4 text-slate-200"><i class="fas fa-chart-bar mr-2 text-emerald-400"></i>Distribuição de CPU/RAM</h3>
+                <img src="data:image/png;base64,{{ chart_recursos }}" alt="Boxplot de Recursos" class="w-full rounded-2xl border border-slate-700/30">
+            </div>
+        </div>
+
+        <!-- ADVANCED ESTATÍSTICA -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Shapiro-Wilk -->
+            <div class="bg-slate-800/30 border border-slate-700/50 p-8 rounded-3xl">
+                <h3 class="heading-font text-xl font-bold mb-4 text-emerald-400"><i class="fas fa-fingerprint mr-2"></i>Teste de Normalidade Shapiro-Wilk</h3>
+                {% if shapiro %}
+                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+                        <p>Estatística do Teste (W): <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ shapiro.est }}</code></p>
+                        <p>P-Valor: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ shapiro.p_val }}</code></p>
+                        {% if shapiro.normal %}
+                            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-4 rounded-2xl text-xs">
+                                <strong>🟢 Distribuição Gaussiana Normal:</strong> Os tempos de resposta comportam-se de forma regular e previsível. Sem anomalias persistentes no fluxo.
+                            </div>
+                        {% else %}
+                            <div class="bg-amber-500/10 border border-amber-500/20 text-amber-300 p-4 rounded-2xl text-xs">
+                                <strong>⚠️ Comportamento Não-Normal:</strong> Detecção de caudas pesadas ou outliers severos. Risco de gargalos mecânicos temporários ou instabilidade no barramento.
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p class="text-slate-500 text-sm">💡 Algoritmo de teste Shapiro-Wilk pendente de implementação na Semana 6.</p>
+                {% endif %}
+            </div>
+
+            <!-- Capacity Planning -->
+            <div class="bg-slate-800/30 border border-slate-700/50 p-8 rounded-3xl">
+                <h3 class="heading-font text-xl font-bold mb-4 text-emerald-400"><i class="fas fa-clock mr-2"></i>Regressão Linear & Capacity Planning</h3>
+                {% if capacity %}
+                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+                        <p>Equação de Uso Estimado: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">RAM = {{ capacity.a }} * t + {{ capacity.b }}</code></p>
+                        <p>Projeção de Consumo (t = +48h): <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ capacity.predito }}%</code></p>
+                        {% if capacity.critico %}
+                            <div class="bg-red-500/10 border border-red-500/20 text-red-300 p-4 rounded-2xl text-xs">
+                                <strong>🚨 ALERTA DE CAPACIDADE:</strong> O consumo de memória projetado ultrapassará os limites operacionais aceitáveis. Risco iminente de queda do sistema.
+                            </div>
+                        {% else %}
+                            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-4 rounded-2xl text-xs">
+                                <strong>🟢 Capacidade Segura:</strong> A inclinação da reta de regressão linear projeta um crescimento estável e dentro dos limites para as próximas 48 horas.
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p class="text-slate-500 text-sm">💡 Algoritmo de ajuste de regressão linear para capacity planning pendente de implementação na Semana 11.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

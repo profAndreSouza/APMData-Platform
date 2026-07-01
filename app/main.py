@@ -12,7 +12,7 @@ import seaborn as sns
 
 # Importa loaders e helpers
 from utils.data_loader import gerar_dados_apm
-from utils.helpers import obter_readme_markdown, testar_funcao, obter_codigo_funcao, obter_semana_info
+from utils.helpers import testar_funcao, obter_codigo_funcao, obter_semana_info
 
 # Tenta importar as funções de ciência de dados dos alunos
 core_stats = None
@@ -141,6 +141,13 @@ def index():
             "progress": "100%" if status_semanas[num] == "Concluído" else "0%"
         })
 
+    return render_template(
+        "index.html",
+        semanas=semanas_info
+    )
+
+@app.route("/telemetria")
+def telemetria():
     # Carrega e calcula telemetria em tempo real
     df_apm = gerar_dados_apm(150)
     valores_latencia = df_apm["tempo_resposta_ms"].tolist()
@@ -224,19 +231,15 @@ def index():
             "critico": predito >= 90.0
         }
 
-    readme_content = obter_readme_markdown()
-
     return render_template(
-        "index.html",
-        semanas=semanas_info,
+        "telemetria.html",
         media=media_val,
         mediana=mediana_val,
         jitter=std_val,
         chart_latencia=chart_latencia,
         chart_recursos=chart_recursos,
         shapiro=shapiro_resultado,
-        capacity=capacity_resultado,
-        readme=readme_content
+        capacity=capacity_resultado
     )
 
 @app.route("/semana/<int:num>")

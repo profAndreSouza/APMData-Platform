@@ -131,7 +131,7 @@
             {% for week in semanas %}
             <a href="/semana/{{ week.n }}" class="week-card bg-white border border-slate-200 hover:border-emerald-400 rounded-3xl p-6 transition-all cursor-pointer block no-underline text-inherit shadow-sm">
                 <div class="flex justify-between items-start">
-                    <div class="text-4xl mb-3">{{ week.icon }}</div>
+                    <div class="text-3xl text-emerald-500 mb-3"><i class="{{ week.icon }}"></i></div>
                     <div class="text-right flex flex-col gap-1.5 align-end items-end">
                         <span class="badge-semana">Sem {{ week.n }}</span>
                         {% if week.status == "Concluído" %}
@@ -256,110 +256,6 @@
                 <div class="w-16 h-16 mx-auto bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">3️⃣</div>
                 <h4 class="font-bold text-xl mb-2 text-slate-900">Rode o Projeto</h4>
                 <p class="text-slate-600 text-sm">Inicie o ambiente pelo Docker Compose e comece a preencher os desafios.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- README SECTION -->
-{% if readme %}
-<section class="py-12 bg-slate-50 border-t border-slate-200">
-    <div class="max-w-4xl mx-auto px-6">
-        <details class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm group">
-            <summary class="heading-font text-lg font-bold text-slate-800 cursor-pointer list-none flex justify-between items-center select-none">
-                <span>📖 Visualizar Guia Completo do Projeto (README.md)</span>
-                <i class="fas fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
-            </summary>
-            <div class="mt-6 prose max-w-none text-slate-600 border-t border-slate-100 pt-6">
-                {{ readme | safe }}
-            </div>
-        </details>
-    </div>
-</section>
-{% endif %}
-
-<!-- TELEMETRIA AO VIVO (DASHBOARD) -->
-<section id="telemetria" class="py-24 bg-slate-900 text-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-            <span class="px-4 py-2 bg-emerald-500/20 text-emerald-300 rounded-3xl text-sm font-semibold uppercase tracking-wider">⚡ Monitoramento Online</span>
-            <h2 class="heading-font text-4xl font-bold mt-4 text-white">Painel de Telemetria de Motores</h2>
-            <p class="text-slate-400 mt-2 text-sm max-w-md mx-auto">Dados reais dos sensores computados dinamicamente pelos algoritmos de Ciência de Dados</p>
-        </div>
-
-        <!-- Métrica Cards -->
-        <div class="grid md:grid-cols-3 gap-8 mb-16">
-            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
-                <span class="text-slate-400 text-xs font-semibold uppercase">Tempo de Resposta Médio</span>
-                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ media or '⚠️ Pendente (calcular_media)' }}</div>
-                <span class="text-emerald-400 text-[10px] mt-2"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
-            </div>
-            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
-                <span class="text-slate-400 text-xs font-semibold uppercase">Latência Mediana (P50)</span>
-                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ mediana or '⚠️ Pendente (calcular_mediana)' }}</div>
-                <span class="text-emerald-400 text-[10px] mt-2"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
-            </div>
-            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
-                <span class="text-slate-400 text-xs font-semibold uppercase">Desvio Padrão (Jitter)</span>
-                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ jitter or '⚠️ Pendente (calcular_desvio_padrao)' }}</div>
-                <span class="text-emerald-400 text-[10px] mt-2"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
-            </div>
-        </div>
-
-        <!-- Gráficos -->
-        <div class="grid lg:grid-cols-3 gap-8 items-start mb-16">
-            <div class="lg:col-span-2 bg-slate-800/40 border border-slate-700/50 p-6 rounded-3xl shadow-lg">
-                <h3 class="heading-font text-lg font-semibold mb-4 text-slate-200">Gráfico de Telemetria de Latência</h3>
-                <img src="data:image/png;base64,{{ chart_latencia }}" alt="Gráfico de Telemetria" class="w-full rounded-2xl border border-slate-700/30">
-            </div>
-            <div class="bg-slate-800/40 border border-slate-700/50 p-6 rounded-3xl shadow-lg">
-                <h3 class="heading-font text-lg font-semibold mb-4 text-slate-200">Distribuição de Recursos</h3>
-                <img src="data:image/png;base64,{{ chart_recursos }}" alt="Gráfico de Recursos" class="w-full rounded-2xl border border-slate-700/30">
-            </div>
-        </div>
-
-        <!-- Estatísticas Avançadas -->
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-slate-800/30 border border-slate-700/50 p-8 rounded-3xl">
-                <h3 class="heading-font text-xl font-bold mb-4 text-emerald-400"><i class="fas fa-fingerprint mr-2"></i>Teste de Shapiro-Wilk (Aderência)</h3>
-                {% if shapiro %}
-                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
-                        <p>Estatística W: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ shapiro.est }}</code></p>
-                        <p>P-Valor: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ shapiro.p_val }}</code></p>
-                        {% if shapiro.normal %}
-                            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-4 rounded-2xl text-xs">
-                                <strong>🟢 Aderência Normal:</strong> As latências se distribuem de forma regular (gaussiana) sem anomalias persistentes detectadas.
-                            </div>
-                        {% else %}
-                            <div class="bg-amber-500/10 border border-amber-500/20 text-amber-300 p-4 rounded-2xl text-xs">
-                                <strong>⚠️ Não-Normal:</strong> Forte presença de gargalos e outliers anômalos detectados na telemetria.
-                            </div>
-                        {% endif %}
-                    </div>
-                {% else %}
-                    <p class="text-slate-500 text-sm">💡 Algoritmo de teste de normalidade Shapiro-Wilk pendente de implementação.</p>
-                {% endif %}
-            </div>
-
-            <div class="bg-slate-800/30 border border-slate-700/50 p-8 rounded-3xl">
-                <h3 class="heading-font text-xl font-bold mb-4 text-emerald-400"><i class="fas fa-clock mr-2"></i>Capacity Planning (Regressão)</h3>
-                {% if capacity %}
-                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
-                        <p>Fórmula de RAM: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">RAM = {{ capacity.a }} * t + {{ capacity.b }}</code></p>
-                        <p>Consumo Estimado em 48h: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ capacity.predito }}%</code></p>
-                        {% if capacity.critico %}
-                            <div class="bg-red-500/10 border border-red-500/20 text-red-300 p-4 rounded-2xl text-xs">
-                                <strong>🚨 ALERTA CRÍTICO:</strong> Estimativa de RAM excede o limite. Risco severo de Out-Of-Memory (Memory Leak).
-                            </div>
-                        {% else %}
-                            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-4 rounded-2xl text-xs">
-                                <strong>🟢 Seguro:</strong> Uso projetado de RAM está sob controle e dentro dos limites operacionais.
-                            </div>
-                        {% endif %}
-                    </div>
-                {% else %}
-                    <p class="text-slate-500 text-sm">💡 Algoritmo de ajuste de regressão linear para capacity planning pendente de implementação.</p>
-                {% endif %}
             </div>
         </div>
     </div>
