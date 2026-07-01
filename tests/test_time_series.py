@@ -22,7 +22,7 @@ def test_calcular_correlacao_spearman():
     y = [10, 20, 15, 30, 25]  # Não perfeitamente linear, mas monotônica
     # Spearman deve ser próximo de 1.0 (ou exatamente correspondente)
     val = calcular_correlacao_spearman(x, y)
-    assert val > 0.8
+    assert pytest.approx(val, 0.001) == 0.8
 
 def test_decompor_serie_temporal():
     # Cria uma série temporal com tendência e sazonalidade explícitas

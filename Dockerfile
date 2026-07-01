@@ -21,11 +21,12 @@ COPY app/ ./app/
 COPY tests/ ./tests/
 COPY README.md ./README.md
 
-# Expõe a porta padrão do Streamlit
-EXPOSE 8501
+# Expõe a porta padrão do Flask
+EXPOSE 5000
 
-# Variável de ambiente PYTHONPATH para que o Streamlit encontre o módulo 'core'
+# Variável de ambiente PYTHONPATH para que o Flask encontre o módulo 'core'
 ENV PYTHONPATH=/app/app
 
 # Comando de inicialização
-CMD ["streamlit", "run", "app/main.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.runOnSave=true"]
+CMD ["python", "app/main.py"]
+

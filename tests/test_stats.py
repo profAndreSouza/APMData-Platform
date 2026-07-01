@@ -35,12 +35,12 @@ def test_calcular_amplitude():
 def test_calcular_variancia_amostral():
     dados = [10, 12, 23, 23, 16, 23, 21, 16]
     # Variância amostral (divisor N-1)
-    assert pytest.approx(calcular_variancia(dados, amostral=True), 0.001) == 28.857
+    assert pytest.approx(calcular_variancia(dados, amostral=True), 0.001) == 27.42857
 
 def test_calcular_variancia_populacional():
     dados = [10, 12, 23, 23, 16, 23, 21, 16]
     # Variância populacional (divisor N)
-    assert pytest.approx(calcular_variancia(dados, amostral=False), 0.001) == 25.25
+    assert pytest.approx(calcular_variancia(dados, amostral=False), 0.001) == 24.0
 
 def test_calcular_desvio_padrao():
     dados = [10, 12, 23, 23, 16, 23, 21, 16]

@@ -1,0 +1,367 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- HERO -->
+<header class="hero-bg pb-20 pt-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 bg-white border border-emerald-200 text-emerald-700 text-sm font-medium px-5 py-2 rounded-3xl shadow-sm">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    15 SEMANAS • CIÊNCIA DE DADOS + AWS + DEVOPS
+                </div>
+                
+                <h1 class="heading-font text-5xl md:text-6xl font-bold leading-tight tracking-tight text-slate-900">
+                    Construa uma <span class="text-emerald-600">Plataforma Real</span><br>
+                    de Manutenção Preditiva
+                </h1>
+                
+                <p class="text-xl text-slate-600 max-w-md">
+                    Aprenda Ciência de Dados, Computação em Nuvem AWS e DevOps enquanto desenvolve um sistema industrial completo.
+                </p>
+                
+                <div class="flex items-center gap-4">
+                    <a href="#cronograma" 
+                       class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-3 transition-all no-underline shadow-lg hover:shadow-xl hover:scale-105">
+                        <i class="fas fa-calendar"></i>
+                        Ver Cronograma Completo
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative">
+                <div class="bg-white border border-slate-200 rounded-3xl p-3 shadow-2xl">
+                    <img src="https://picsum.photos/id/1015/800/600" alt="Dashboard Industrial" 
+                         class="rounded-2xl shadow-inner w-full">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-white border border-emerald-200 rounded-2xl p-5 shadow-xl">
+                    <div class="flex items-center gap-4">
+                        <div class="text-4xl">🏭</div>
+                        <div>
+                            <div class="text-emerald-600 font-medium text-sm">MOTORES ONLINE</div>
+                            <div class="text-3xl font-bold heading-font text-slate-900">47</div>
+                            <div class="text-xs text-emerald-600">Previsão de falha: <span class="font-semibold">89%</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- SOBRE -->
+<section id="sobre" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-12 gap-16 items-center">
+            <div class="md:col-span-5">
+                <span class="text-emerald-600 font-bold tracking-widest text-xs uppercase">OBJETIVO PEDAGÓGICO</span>
+                <h2 class="heading-font text-4xl font-semibold mt-3 leading-tight text-slate-900">
+                    Do zero ao deploy de uma plataforma industrial completa
+                </h2>
+                <p class="text-slate-600 mt-6 text-lg">
+                    Ao longo de 15 semanas você vai construir uma solução real de <strong>Manutenção Preditiva</strong> para monitoramento de motores elétricos.
+                </p>
+                
+                <div class="mt-10 space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl">📈</div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900">Ciência de Dados</h4>
+                            <p class="text-slate-600 text-sm">Estatística, séries temporais, testes de hipóteses e modelos preditivos.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl">☁️</div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900">Computação em Nuvem</h4>
+                            <p class="text-slate-600 text-sm">AWS com laboratórios oficiais do AWS Academy.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center flex-shrink-0 text-2xl">🚀</div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900">DevOps</h4>
+                            <p class="text-slate-600 text-sm">Docker, CI/CD e infraestrutura como código.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-7 bg-slate-50 border border-slate-100 rounded-3xl p-10">
+                <h3 class="text-xl font-semibold mb-8 flex items-center gap-3 text-slate-900">
+                    O que você vai entregar no final:
+                </h3>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-emerald-200 transition-colors shadow-sm">
+                        <div class="text-5xl mb-4">📊</div>
+                        <div class="font-semibold text-slate-900">Dashboard Interativo</div>
+                        <div class="text-sm text-slate-500 mt-1">Em tempo real com previsões</div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-emerald-200 transition-colors shadow-sm">
+                        <div class="text-5xl mb-4">🗄️</div>
+                        <div class="font-semibold text-slate-900">Banco RDS PostgreSQL</div>
+                        <div class="text-sm text-slate-500 mt-1">Persistência de dados de sensores</div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-emerald-200 transition-colors shadow-sm">
+                        <div class="text-5xl mb-4">☁️</div>
+                        <div class="font-semibold text-slate-900">Infraestrutura AWS</div>
+                        <div class="text-sm text-slate-500 mt-1">Serverless + Auto Scaling</div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 hover:border-emerald-200 transition-colors shadow-sm">
+                        <div class="text-5xl mb-4">🔄</div>
+                        <div class="font-semibold text-slate-900">Pipeline CI/CD</div>
+                        <div class="text-sm text-slate-500 mt-1">Deploy automático</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section id="cronograma" class="py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <span class="px-6 py-2 bg-emerald-100 text-emerald-700 rounded-3xl text-sm font-semibold uppercase">15 SEMANAS</span>
+            <h2 class="heading-font text-5xl font-semibold mt-4 text-slate-900">Sua Jornada Semanal</h2>
+            <p class="text-slate-600 mt-3 max-w-md mx-auto">Acompanhamento de progresso e guia didático de aulas</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for week in semanas %}
+            <a href="/semana/{{ week.n }}" class="week-card bg-white border border-slate-200 hover:border-emerald-400 rounded-3xl p-6 transition-all cursor-pointer block no-underline text-inherit shadow-sm">
+                <div class="flex justify-between items-start">
+                    <div class="text-4xl mb-3">{{ week.icon }}</div>
+                    <div class="text-right flex flex-col gap-1.5 align-end items-end">
+                        <span class="badge-semana">Sem {{ week.n }}</span>
+                        {% if week.status == "Concluído" %}
+                            <span class="badge-status-concluido">🟢 Concluído</span>
+                        {% else %}
+                            <span class="badge-status-pendente">🟡 Pendente</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="heading-font text-xl font-semibold text-slate-900 mt-4">{{ week.title }}</h3>
+                <p class="text-slate-500 mt-2 text-xs line-clamp-3 min-h-[3rem]">{{ week.desc }}</p>
+                
+                <div class="mt-6 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-1.5 bg-gradient-to-r {% if week.status == 'Concluído' %}from-emerald-400 to-emerald-600{% else %}from-amber-400 to-amber-600{% endif %} rounded-full" style="width: {{ week.progress }}"></div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- AWS ACADEMY -->
+<section id="aws" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row gap-12 items-start">
+            <div class="md:w-5/12">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">LABORATÓRIOS OFICIAIS</span>
+                <h2 class="heading-font text-4xl font-semibold text-slate-900 mt-2">Integração Oficial com AWS Academy</h2>
+                <p class="mt-6 text-slate-600 leading-relaxed text-sm">
+                    Todos os laboratórios práticos do curso <strong>AWS Academy Cloud Developing</strong> estão mapeados diretamente para o seu projeto, fornecendo uma base sólida de segurança, banco de dados, armazenamento e arquitetura serverless.
+                </p>
+            </div>
+            
+            <div class="md:w-7/12 w-full overflow-x-auto">
+                <table class="aws-table border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="py-4">Semana</th>
+                            <th class="py-4">Lab AWS</th>
+                            <th class="py-4">Aplicação no Projeto</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="py-4 font-mono font-bold text-emerald-600 text-xs">Sem 2</td>
+                            <td class="py-4 font-semibold text-slate-900 text-xs">IAM</td>
+                            <td class="py-4 text-slate-600 text-xs">Permissões seguras para a equipe e roles de deploy</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-mono font-bold text-emerald-600 text-xs">Sem 6</td>
+                            <td class="py-4 font-semibold text-slate-900 text-xs">RDS Databases</td>
+                            <td class="py-4 text-slate-600 text-xs">Banco PostgreSQL para persistir status e falhas</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-mono font-bold text-emerald-600 text-xs">Sem 7</td>
+                            <td class="py-4 font-semibold text-slate-900 text-xs">Boto3 + DynamoDB / S3</td>
+                            <td class="py-4 text-slate-600 text-xs">Integração com armazenamento de arquivos via Python</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-mono font-bold text-emerald-600 text-xs">Sem 9</td>
+                            <td class="py-4 font-semibold text-slate-900 text-xs">Lambda + API Gateway</td>
+                            <td class="py-4 text-slate-600 text-xs">Endpoint Serverless para disparo de alertas de calor</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 font-mono font-bold text-emerald-600 text-xs">Sem 11</td>
+                            <td class="py-4 font-semibold text-slate-900 text-xs">Beanstalk / ECS Fargate</td>
+                            <td class="py-4 text-slate-600 text-xs">Deploy final do dashboard conteinerizado em nuvem</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ESTRUTURA -->
+<section id="estrutura" class="py-24 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-6">
+        <h2 class="heading-font text-4xl font-semibold text-center mb-4 text-slate-900">Estrutura do Projeto</h2>
+        <p class="text-center text-slate-600 mb-12">Organização modular planejada para escalabilidade e testes</p>
+        
+        <div class="project-tree shadow-xl">
+            <pre>indudata-platform/
+├── .github/workflows/          # CI/CD (GitHub Actions)
+├── app/
+│   ├── core/                   # Ciência de Dados (Módulos matemáticos)
+│   │   ├── stats.py
+│   │   ├── hypothesis.py
+│   │   ├── sampling.py
+│   │   └── time_series.py
+│   ├── templates/              # Visual do Portal (Flask Templates)
+│   ├── utils/                  # Auxiliares
+│   └── main.py                 # Backend Flask
+├── tests/                      # Testes automáticos
+├── Dockerfile                  # Empacotamento de container
+├── docker-compose.yml          # Orquestração do ambiente
+└── requirements.txt            # Dependências Python</pre>
+        </div>
+    </div>
+</section>
+
+<!-- COMO COMEÇAR -->
+<section id="start" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="heading-font text-4xl font-semibold text-slate-900">Como Começar</h2>
+            <p class="text-slate-500 mt-2">Siga estes passos para configurar seu repositório integrador</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 text-center hover:border-emerald-300 transition-all group shadow-sm">
+                <div class="w-16 h-16 mx-auto bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">1️⃣</div>
+                <h4 class="font-bold text-xl mb-2 text-slate-900">Fork o Repositório</h4>
+                <p class="text-slate-600 text-sm">Clone o repositório base oficial fornecido na sua conta do GitHub.</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 text-center hover:border-sky-300 transition-all group shadow-sm">
+                <div class="w-16 h-16 mx-auto bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">2️⃣</div>
+                <h4 class="font-bold text-xl mb-2 text-slate-900">Configure seu Ambiente</h4>
+                <p class="text-slate-600 text-sm">Instale Python, Docker, Git e obtenha acesso à sua conta AWS Academy.</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 text-center hover:border-violet-300 transition-all group shadow-sm">
+                <div class="w-16 h-16 mx-auto bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">3️⃣</div>
+                <h4 class="font-bold text-xl mb-2 text-slate-900">Rode o Projeto</h4>
+                <p class="text-slate-600 text-sm">Inicie o ambiente pelo Docker Compose e comece a preencher os desafios.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- README SECTION -->
+{% if readme %}
+<section class="py-12 bg-slate-50 border-t border-slate-200">
+    <div class="max-w-4xl mx-auto px-6">
+        <details class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm group">
+            <summary class="heading-font text-lg font-bold text-slate-800 cursor-pointer list-none flex justify-between items-center select-none">
+                <span>📖 Visualizar Guia Completo do Projeto (README.md)</span>
+                <i class="fas fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="mt-6 prose max-w-none text-slate-600 border-t border-slate-100 pt-6">
+                {{ readme | safe }}
+            </div>
+        </details>
+    </div>
+</section>
+{% endif %}
+
+<!-- TELEMETRIA AO VIVO (DASHBOARD) -->
+<section id="telemetria" class="py-24 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <span class="px-4 py-2 bg-emerald-500/20 text-emerald-300 rounded-3xl text-sm font-semibold uppercase tracking-wider">⚡ Monitoramento Online</span>
+            <h2 class="heading-font text-4xl font-bold mt-4 text-white">Painel de Telemetria de Motores</h2>
+            <p class="text-slate-400 mt-2 text-sm max-w-md mx-auto">Dados reais dos sensores computados dinamicamente pelos algoritmos de Ciência de Dados</p>
+        </div>
+
+        <!-- Métrica Cards -->
+        <div class="grid md:grid-cols-3 gap-8 mb-16">
+            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
+                <span class="text-slate-400 text-xs font-semibold uppercase">Tempo de Resposta Médio</span>
+                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ media or '⚠️ Pendente (calcular_media)' }}</div>
+                <span class="text-emerald-400 text-[10px] mt-2"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
+                <span class="text-slate-400 text-xs font-semibold uppercase">Latência Mediana (P50)</span>
+                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ mediana or '⚠️ Pendente (calcular_mediana)' }}</div>
+                <span class="text-emerald-400 text-[10px] mt-2"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
+            </div>
+            <div class="bg-slate-800/80 border border-slate-700/50 p-6 rounded-3xl flex flex-col justify-between shadow-lg">
+                <span class="text-slate-400 text-xs font-semibold uppercase">Desvio Padrão (Jitter)</span>
+                <div class="text-3xl font-bold text-white mt-4 heading-font">{{ jitter or '⚠️ Pendente (calcular_desvio_padrao)' }}</div>
+                <span class="text-emerald-400 text-[10px] mt-2"><i class="fas fa-microchip mr-1"></i>Módulo: app.core.stats</span>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="grid lg:grid-cols-3 gap-8 items-start mb-16">
+            <div class="lg:col-span-2 bg-slate-800/40 border border-slate-700/50 p-6 rounded-3xl shadow-lg">
+                <h3 class="heading-font text-lg font-semibold mb-4 text-slate-200">Gráfico de Telemetria de Latência</h3>
+                <img src="data:image/png;base64,{{ chart_latencia }}" alt="Gráfico de Telemetria" class="w-full rounded-2xl border border-slate-700/30">
+            </div>
+            <div class="bg-slate-800/40 border border-slate-700/50 p-6 rounded-3xl shadow-lg">
+                <h3 class="heading-font text-lg font-semibold mb-4 text-slate-200">Distribuição de Recursos</h3>
+                <img src="data:image/png;base64,{{ chart_recursos }}" alt="Gráfico de Recursos" class="w-full rounded-2xl border border-slate-700/30">
+            </div>
+        </div>
+
+        <!-- Estatísticas Avançadas -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-slate-800/30 border border-slate-700/50 p-8 rounded-3xl">
+                <h3 class="heading-font text-xl font-bold mb-4 text-emerald-400"><i class="fas fa-fingerprint mr-2"></i>Teste de Shapiro-Wilk (Aderência)</h3>
+                {% if shapiro %}
+                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+                        <p>Estatística W: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ shapiro.est }}</code></p>
+                        <p>P-Valor: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ shapiro.p_val }}</code></p>
+                        {% if shapiro.normal %}
+                            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-4 rounded-2xl text-xs">
+                                <strong>🟢 Aderência Normal:</strong> As latências se distribuem de forma regular (gaussiana) sem anomalias persistentes detectadas.
+                            </div>
+                        {% else %}
+                            <div class="bg-amber-500/10 border border-amber-500/20 text-amber-300 p-4 rounded-2xl text-xs">
+                                <strong>⚠️ Não-Normal:</strong> Forte presença de gargalos e outliers anômalos detectados na telemetria.
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p class="text-slate-500 text-sm">💡 Algoritmo de teste de normalidade Shapiro-Wilk pendente de implementação.</p>
+                {% endif %}
+            </div>
+
+            <div class="bg-slate-800/30 border border-slate-700/50 p-8 rounded-3xl">
+                <h3 class="heading-font text-xl font-bold mb-4 text-emerald-400"><i class="fas fa-clock mr-2"></i>Capacity Planning (Regressão)</h3>
+                {% if capacity %}
+                    <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+                        <p>Fórmula de RAM: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">RAM = {{ capacity.a }} * t + {{ capacity.b }}</code></p>
+                        <p>Consumo Estimado em 48h: <code class="bg-slate-800 px-2 py-1 rounded text-white font-mono">{{ capacity.predito }}%</code></p>
+                        {% if capacity.critico %}
+                            <div class="bg-red-500/10 border border-red-500/20 text-red-300 p-4 rounded-2xl text-xs">
+                                <strong>🚨 ALERTA CRÍTICO:</strong> Estimativa de RAM excede o limite. Risco severo de Out-Of-Memory (Memory Leak).
+                            </div>
+                        {% else %}
+                            <div class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-4 rounded-2xl text-xs">
+                                <strong>🟢 Seguro:</strong> Uso projetado de RAM está sob controle e dentro dos limites operacionais.
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p class="text-slate-500 text-sm">💡 Algoritmo de ajuste de regressão linear para capacity planning pendente de implementação.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
